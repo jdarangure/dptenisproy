@@ -1,0 +1,135 @@
+{% extends "./templatebase.html" %}
+
+{% block title %} Distribuidores {% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    {% if messages %}
+    {% for message in messages %}
+    <div id="alert-message" class="alert alert-dismissible alert-success fade show shadow" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong class="text-dark">{{ message }}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <h2>Captura de Distribuidores</h2>
+    <div class="card">
+      <div class="card-body">
+        <form action="/registradist/" method="POST" class="needs-validation" novalidate>{% csrf_token %}
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtIdDist" id="txtIdDist" class="form-control" placeholder="Id del Distribuidor" minlength="12" maxlength="12" required>
+            <label for="txtIdDist">Id del Distribuidor</label>
+            <div class="invalid-feedback">Capture el Id</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtNombre" id="txtNombre" class="form-control" placeholder="Nombre" maxlength="50" required>
+            <label for="txtNombre">Nombre</label>
+            <div class="invalid-feedback">Capture el nombre</div>
+          </div>  
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtApPaterno" id="txtApPaterno" class="form-control" placeholder="Apellido Paterno" required>
+            <label for="txtApPaterno">Apellido Paterno</label>
+            <div class="invalid-feedback">Capture el apellido paterno</div> 
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtApMaterno" id="txtApMaterno" class="form-control" placeholder="Apellido Materno" required>
+            <label for="txtApMaterno">Apellido Materno</label>
+            <div class="invalid-feedback">Capture el apellido materno</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtCalle" id="txtCalle" class="form-control" placeholder="Calle" required>
+            <label for="txtCalle">Calle</label>
+            <div class="invalid-feedback">Capture la Calle</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="number" name="txtNumeroCasa" id="txtNumeroCasa" class="form-control" placeholder="Número de Casa" required>
+            <label for="txtNumeroCasa">Número de Casa</label>
+            <div class="invalid-feedback">Capture el número de casa</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtColonia" id="txtColonia" class="form-control" placeholder="Colonia" required>
+            <label for="txtColonia">Colonia</label>
+            <div class="invalid-feedback">Capture el nombre de la colonia</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="number" name="txtTelefono" id="txtTelefono" class="form-control" placeholder="Teléfono" min="1000000000" max="9999999999" required>
+            <label for="txtTelefono">Teléfono</label>
+            <div class="invalid-feedback">El número de telefóno debe contener 10 dígitos</div>
+          </div>
+          <div class="mb-3 d-block d-grid">
+            <button type="submit" class="btn btn-success text-white">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <h1>Lista de Distribuidores - Optimizada</h1>
+    <div class="table-responsive py-2">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Id Distribuidor</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Télefono</th>
+            <th colspan="2">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in distributor %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{d.id_dist}}</td>
+            <td>{{d.nombre_completo}}</td>
+            <td>{{d.direccion}}</td>
+            <td>{{d.telefono}}</td>
+            <td><a href="editardist/{{d.id_dist}}" class="btn btn-info text-white">Editar</a></td>
+            <td><a href="borradist/{{d.id_dist}}" class="btn btn-danger text-white btnEliminar">Borrar</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h1>Lista de Distribuidores - Completa</h1>
+    <div class="table-responsive py-2">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Id Distribuidor</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Calle</th>
+            <th>Número de Casa</th>
+            <th>Colonia</th>
+            <th>Télefono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dc in distComplete %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{dc.id_dist}}</td>
+            <td>{{dc.nombre}}</td>
+            <td>{{dc.apellido_paterno}}</td>
+            <td>{{dc.apellido_materno}}</td>
+            <td>{{dc.calle}}</td>
+            <td>{{dc.numero_casa}}</td>
+            <td>{{dc.numero_telefono}}</td>
+            <td>{{dc.numero_telefono}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

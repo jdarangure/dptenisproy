@@ -1,0 +1,60 @@
+{% extends "./templatebase.html" %}
+
+{% block title %} Distribuidores {% endblock %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-4 offset-md-4">
+    <h2>Edición de Distribuidores</h2>
+    <div class="card">
+      <div class="card-body">
+        <form action="/editdist/" method="POST" class="needs-validation" novalidate>{% csrf_token %}
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtIdDist" id="txtIdDist" value="{{distributor.id_dist}}" class="form-control" placeholder="Id del Distribuidor" readonly>
+            <label for="txtIdDist">Id del Distribuidor</label>
+            <div class="invalid-feedback">Capture el Id</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtNombre" id="txtNombre" value="{{distributor.nombre}}" class="form-control" placeholder="Nombre" maxlength="50" required>
+            <label for="txtNombre">Nombre</label>
+            <div class="invalid-feedback">Capture el nombre</div>
+          </div>  
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtApPaterno" id="txtApPaterno" value="{{distributor.apellido_paterno}}" class="form-control" placeholder="Apellido Paterno" required>
+            <label for="txtApPaterno">Apellido Paterno</label>
+            <div class="invalid-feedback">Capture el apellido paterno</div> 
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtApMaterno" id="txtApMaterno" value="{{distributor.apellido_materno}}" class="form-control" placeholder="Apellido Materno" required>
+            <label for="txtApMaterno">Apellido Materno</label>
+            <div class="invalid-feedback">Capture el apellido materno</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtCalle" id="txtCalle" value="{{distributor.calle}}" class="form-control" placeholder="Calle" required>
+            <label for="txtCalle">Calle</label>
+            <div class="invalid-feedback">Capture la Calle</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="number" name="txtNumeroCasa" id="txtNumeroCasa" value="{{distributor.numero_casa}}" class="form-control" required>
+            <label for="txtNumeroCasa">Número de Casa</label>
+            <div class="invalid-feedback">Capture el número de casa</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="text" name="txtColonia" id="txtColonia" value="{{distributor.colonia}}" class="form-control" placeholder="Colonia" required>
+            <label for="txtColonia">Colonia</label>
+            <div class="invalid-feedback">Capture el nombre de la colonia</div>
+          </div>
+          <div class="mb-3 form-floating">
+            <input type="number" name="txtTelefono" id="txtTelefono" value="{{distributor.numero_telefono}}" class="form-control" placeholder="Teléfono" min="1000000000" max="9999999999" required>
+            <label for="txtTelefono">Teléfono</label>
+            <div class="invalid-feedback">El número de telefóno debe contener 10 dígitos</div>
+          </div>
+          <div class="mb-3 d-block d-grid">
+            <button type="submit" class="btn btn-success text-white">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
